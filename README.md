@@ -11,39 +11,29 @@
 - `check_site_accessibility.py` - 主检查脚本（从CSV文件检查网站可访问性，Windows兼容）
 - `check_miningsites_accessbility.py` - 挖矿网站连通性检查脚本（从文本文件检查URL连通性）
 - `Coinhive_site_list.csv` - 网站列表数据文件
-- `requirements.txt` - Python依赖包列表
+- `Coinhive_site_list.csv.backup` - CSV文件备份
+- `QUICKSTART.md` - 快速开始指南
 - `README.md` - 本说明文档
+- `requirements.txt` - Python依赖包列表
 
 ## 快速开始（Windows）
 
-### 方法1：使用批处理脚本（推荐）
-
-```cmd
-# 检查前100个网站（测试用）
-run_check.bat
-
-# 检查所有网站
-run_check_all.bat
-```
-
-### 方法2：直接运行Python脚本
-
-```cmd
-cd TestConnect
-python check_site_accessibility.py
-```
-
 ### 基本用法
 
-```bash
-cd TestConnect
-python check_site_accessibility.py
+```cmd
+# 检查20个未标记的网站
+py check_site_accessibility.py -n 20
+
+# 或者如果 python 命令指向 Python 3
+python check_site_accessibility.py -n 20
 ```
+
+**注意**: 使用 `py` 命令可以确保使用 Python 3（推荐），如果系统同时安装了 Python 2 和 Python 3。
 
 ### 参数说明
 
 ```bash
-python check_site_accessibility.py [选项]
+py check_site_accessibility.py [选项]
 
 选项:
   -i, --input FILE     输入CSV文件路径 (默认: Coinhive_site_list.csv)
@@ -63,19 +53,19 @@ python check_site_accessibility.py [选项]
 
 ```bash
 # 检查100个未标记的网站（必需参数）
-python check_site_accessibility.py -n 100
+py check_site_accessibility.py -n 100
 
 # 检查50个未标记的网站，自定义超时
-python check_site_accessibility.py -n 50 -t 15
+py check_site_accessibility.py -n 50 -t 15
 
 # 指定输入文件和检查数量
-python check_site_accessibility.py -i Coinhive_site_list.csv -n 200
+py check_site_accessibility.py -i Coinhive_site_list.csv -n 200
 
 # 自定义超时、并发数和最大持续时间
-python check_site_accessibility.py -n 100 -t 15 -w 30 --max-duration 20
+py check_site_accessibility.py -n 100 -t 15 -w 30 --max-duration 20
 
 # 自定义资源增长阈值（例如：资源增长超过30%就认为有挖矿脚本）
-python check_site_accessibility.py -n 100 --threshold 30
+py check_site_accessibility.py -n 100 --threshold 30
 ```
 
 ### 标记说明
@@ -143,11 +133,11 @@ pip install requests urllib3 psutil tqdm
 ## 快速测试
 
 ```bash
-# 只检查前10个网站
-python check_site_accessibility.py --limit 10
+# 只检查前10个未标记的网站
+py check_site_accessibility.py -n 10
 
 # 查看结果
-type report_*.txt
+type results\report_*.txt
 ```
 
 ## 使用检查结果
@@ -188,13 +178,16 @@ python mining_detector.py -u TestConnect/results/valid_sites_20231201_120000.txt
 
 ```bash
 # 使用默认参数（从 results/mining_sites.txt 读取，输出到 results/accessible_miningsites.txt）
+py check_miningsites_accessbility.py
+
+# 或者如果 python 命令指向 Python 3
 python check_miningsites_accessbility.py
 ```
 
 ### 参数说明
 
 ```bash
-python check_miningsites_accessbility.py [选项]
+py check_miningsites_accessbility.py [选项]
 
 选项:
   -i, --input FILE     输入文件路径（每行一个URL）(默认: results/mining_sites.txt)
@@ -207,19 +200,19 @@ python check_miningsites_accessbility.py [选项]
 
 ```bash
 # 使用默认参数
-python check_miningsites_accessbility.py
+py check_miningsites_accessbility.py
 
 # 自定义超时时间
-python check_miningsites_accessbility.py -t 15
+py check_miningsites_accessbility.py -t 15
 
 # 自定义并发数
-python check_miningsites_accessbility.py -w 30
+py check_miningsites_accessbility.py -w 30
 
 # 自定义输入和输出文件
-python check_miningsites_accessbility.py -i results/mining_sites.txt -o results/accessible_miningsites.txt
+py check_miningsites_accessbility.py -i results/mining_sites.txt -o results/accessible_miningsites.txt
 
 # 组合使用
-python check_miningsites_accessbility.py -t 15 -w 30
+py check_miningsites_accessbility.py -t 15 -w 30
 ```
 
 ### 输出文件
