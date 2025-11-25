@@ -1,0 +1,22 @@
+# 输出文件夹
+logs/
+results/
+
+# 日志文件
+*.log
+
+# 结果文件
+check_results_*.json
+report_*.txt
+valid_sites_*.txt
+
+# Python缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 虚拟环境
+venv/
+env/
+
